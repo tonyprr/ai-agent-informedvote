@@ -1,0 +1,7 @@
+.venv/
+.env
+.env.example
+query_result.txt
+MultiPDF_RAG_Spec.md
+data/
+.DS_Store

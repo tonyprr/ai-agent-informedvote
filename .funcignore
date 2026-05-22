@@ -1,0 +1,11 @@
+.git*
+.venv/
+.env
+.env.example
+data/
+frontend/
+__pycache__/
+terraform/
+query_result.txt
+MultiPDF_RAG_Spec.md
+README.md
