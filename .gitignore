@@ -2,6 +2,15 @@
 .env
 .env.example
 query_result.txt
+local.settings.json
 MultiPDF_RAG_Spec.md
 data/
 .DS_Store
+terraform/.terraform.lock.hcl
+terraform/.terraform
+terraform/terraform.tfvars
+terraform/terraform.tfstate
+__pycache__/
+backend/__pycache__/
+terraform/terraform.tfstate.backup
+.python_packages/

@@ -9,3 +9,6 @@ terraform/
 query_result.txt
 MultiPDF_RAG_Spec.md
 README.md
+.DS_Store
+backend/__pycache__/
+.python_packages/

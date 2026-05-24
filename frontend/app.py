@@ -1,9 +1,13 @@
+import os
 import streamlit as st
 import requests
 import uuid
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Backend configuration
-BACKEND_URL = "http://127.0.0.1:8000"
+BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 
 # Inject Tailwind CSS via CDN and Premium Custom Styles
 st.markdown("""

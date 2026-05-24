@@ -8,13 +8,8 @@ from contextlib import asynccontextmanager
 
 from .rag import init_pinecone_index, ingest_local_data
 from .agent import rag_graph
+from .utils import logger
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
-)
-logger = logging.getLogger("backend")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,7 +22,7 @@ async def lifespan(app: FastAPI):
         logger.exception("Failed to initialize Pinecone Index on startup:")
     yield
 
-app = FastAPI(title="MultiPDF RAG Engine (LangGraph)", lifespan=lifespan)
+fastapi_app = FastAPI(title="MultiPDF RAG Engine (LangGraph)", lifespan=lifespan)
 
 class QueryRequest(BaseModel):
     prompt: str
@@ -41,7 +36,7 @@ class QueryResponse(BaseModel):
     output_tokens: int
     total_tokens: int
 
-@app.post("/ingest")
+@fastapi_app.post("/ingest")
 def trigger_ingestion():
     logger.info("Triggering PDF ingestion from local directory...")
     try:
@@ -52,7 +47,7 @@ def trigger_ingestion():
         logger.exception("Error during PDF ingestion:")
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/query", response_model=QueryResponse)
+@fastapi_app.post("/query", response_model=QueryResponse)
 def query_rag(request: QueryRequest):
     logger.info(f"Received query request for session '{request.session_id}': '{request.prompt}'")
     try:
@@ -127,4 +122,4 @@ def query_rag(request: QueryRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(fastapi_app, host="0.0.0.0", port=8000)

@@ -1,3 +1,8 @@
+variable "subscription_id" {
+  type        = string
+  description = "ID de la suscripción de Azure. Ejecuta 'az account show --query id -o tsv' para obtenerlo."
+}
+
 variable "resource_group_name" {
   type    = string
   default = "rg-voto-informado"
